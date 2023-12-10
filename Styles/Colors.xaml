@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="Bg">#010440</Color>
+    <Color x:Key="Surface">#75BFB8</Color>
+    <Color x:Key="Text">White</Color>
+    <Color x:Key="Accent">#F26430</Color>
+
+    <SolidColorBrush x:Key="SolidBg" Color="{DynamicResource Bg}"/>
+    <SolidColorBrush x:Key="SolidSurface" Color="{DynamicResource Surface}"/>
+    <SolidColorBrush x:Key="SolidText" Color="{DynamicResource Text}"/>
+    <SolidColorBrush x:Key="SolidAccent" Color="{DynamicResource Accent}"/>
+    <SolidColorBrush x:Key="ClickableBg" Color="White" Opacity="0.001"/>
+
+</ResourceDictionary>
