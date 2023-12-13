@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Aigul.Data;
 using Aigul.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
 
 namespace Aigul.Views;
@@ -24,5 +26,19 @@ public partial class ContactsView : ReactiveUserControl<ContactsViewModel>
     public ContactsView()
     {
         InitializeComponent();
+        DataContext = ViewModel;
+        this.WhenActivated(disposables =>
+        {
+            this.WhenAnyValue(x => x.ViewModel)
+                .WhereNotNull()
+                .Subscribe(async x =>
+                {
+                    DataContext = x;
+
+                    await using var db = new AppDbContext();
+
+                    x.Users = await db.Users.ToListAsync();
+                });
+        });
     }
 }

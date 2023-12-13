@@ -38,7 +38,10 @@
                     <vm:ServicesViewModel />
                 </RadioButton.CommandParameter>
             </RadioButton>
-            <RadioButton Content="Контакты" Style="{StaticResource NavButton}">
+            <RadioButton
+                Command="{Binding GoTo}"
+                Content="Контакты"
+                Style="{StaticResource NavButton}">
                 <RadioButton.CommandParameter>
                     <vm:ContactsViewModel />
                 </RadioButton.CommandParameter>

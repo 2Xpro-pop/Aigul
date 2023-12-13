@@ -12,12 +12,12 @@ namespace Aigul.Converters;
 
 public class BoolToObjectConverter : IValueConverter
 {
-    public object TrueObject
+    public object? TrueObject
     {
         get; set;
     }
 
-    public object FalseObject
+    public object? FalseObject
     {
         get; set;
     }

@@ -9,11 +9,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <TrimmerRootAssembly Include="Aigul" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
     <PackageReference Include="ReactiveUI" Version="19.5.1" />
     <PackageReference Include="ReactiveUI.Fody" Version="19.5.1" />
     <PackageReference Include="ReactiveUI.WPF" Version="19.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="helloapp.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

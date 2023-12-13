@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Aigul.OptimizedModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aigul.Data;
@@ -18,10 +19,9 @@ public class AppDbContext : DbContext
         get; set;
     }
 
-    public AppDbContext() => Database.EnsureCreated();
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite("Data Source=helloapp.db");
+        optionsBuilder.UseModel(AppDbContextModel.Instance);
     }
 }

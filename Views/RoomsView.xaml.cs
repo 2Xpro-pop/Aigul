@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +17,7 @@ using System.Windows.Shapes;
 using Aigul.Data;
 using Aigul.ViewModels;
 using DynamicData;
+using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
 
 namespace Aigul.Views;
@@ -33,20 +35,33 @@ public partial class RoomsView : ReactiveUserControl<RoomsViewModel>
             DataContext = ViewModel;
 
             this.WhenAnyValue(x => x.ViewModel)
-                .Subscribe(x => DataContext = x)
+                .ObserveOn(RxApp.TaskpoolScheduler)
+                .Subscribe(async x =>
+                {
+
+                    if(x is null)
+                    {
+                        return;
+                    }
+
+                    await using var db = new AppDbContext();
+                    var rooms = await db.Rooms.ToArrayAsync();
+
+                    x.Rooms = new(rooms);
+                })
                 .DisposeWith(disposables);
 
             this.WhenAnyValue(x => x.DataContext)
                 .Subscribe(x =>
                 {
-                    ViewModel = x as RoomsViewModel;
+                    if (DataContext is not RoomsViewModel roomsViewModel)
+                    {
+                        return;
+                    }
 
+                    ViewModel = roomsViewModel;
                 })
                 .DisposeWith(disposables);
-
-            using var db = new AppDbContext();
-            ViewModel.Rooms.Clear();
-            ViewModel.Rooms.AddRange(db.Rooms.ToArray());
         });
     }
 

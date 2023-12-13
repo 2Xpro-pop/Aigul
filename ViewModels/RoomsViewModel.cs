@@ -15,9 +15,10 @@ using ReactiveUI.Fody.Helpers;
 namespace Aigul.ViewModels;
 public class RoomsViewModel : PageViewModel
 {
+    [Reactive]
     public ObservableCollection<Room> Rooms
     {
-        get;
+        get; set;
     }
 
     [Reactive]
